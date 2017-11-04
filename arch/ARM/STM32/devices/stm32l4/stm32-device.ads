@@ -50,6 +50,7 @@ with STM32.SPI;     use STM32.SPI;
 with STM32.Timers;  use STM32.Timers;
 with STM32.DAC;     use STM32.DAC;
 with STM32.ADC;     use STM32.ADC;
+with STM32.DMA;     use STM32.DMA;
 
 package STM32.Device is
    pragma Elaborate_Body;
@@ -62,6 +63,14 @@ package STM32.Device is
    procedure Enable_Clock (Point : GPIO_Point);
    procedure Enable_Clock (Points : GPIO_Points);
    procedure Enable_Clock (This : in out Timer);
+
+   Timer_1  : aliased Timer with Import, Volatile, Address => TIM1_Base;
+   Timer_2  : aliased Timer with Import, Volatile, Address => TIM2_Base;
+   Timer_3  : aliased Timer with Import, Volatile, Address => TIM3_Base;
+   Timer_6  : aliased Timer with Import, Volatile, Address => TIM6_Base;
+   Timer_7  : aliased Timer with Import, Volatile, Address => TIM7_Base;
+   Timer_15 : aliased Timer with Import, Volatile, Address => TIM15_Base;
+   Timer_16 : aliased Timer with Import, Volatile, Address => TIM16_Base;
 
    procedure Reset (This : aliased in out GPIO_Port)
      with Inline;
@@ -270,6 +279,16 @@ package STM32.Device is
 
    procedure Reset (This : aliased in out Digital_To_Analog_Converter);
 
+   ---------
+   -- DMA --
+   ---------
+
+   DMA_1 : aliased DMA_Controller with Import, Volatile, Address => DMA1_Base;
+   DMA_2 : aliased DMA_Controller with Import, Volatile, Address => DMA2_Base;
+
+   procedure Enable_Clock (This : aliased in out DMA_Controller);
+   procedure Reset (This : aliased in out DMA_Controller);
+
 private
 
    GPIO_AF_RTC_50Hz_0  : constant GPIO_Alternate_Function := 0;
@@ -315,4 +334,6 @@ private
    GPIO_AF_OTG_FS_12   : constant GPIO_Alternate_Function := 12;
    GPIO_AF_DCMI_13     : constant GPIO_Alternate_Function := 13;
    GPIO_AF_EVENTOUT_15 : constant GPIO_Alternate_Function := 15;
+
+
 end STM32.Device;

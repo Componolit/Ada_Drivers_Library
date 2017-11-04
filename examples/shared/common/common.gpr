@@ -2,6 +2,7 @@ project Common is
 
    type LOADER_Type is
       ("RAM", "ROM");
+
    LOADER : LOADER_Type := external ("LOADER", "ROM");
 
    type RTS_Type is ("ravenscar-sfp", "ravenscar-full");
@@ -35,7 +36,8 @@ project Common is
 
    package Linker is
       for Default_Switches ("Ada") use
-        ("-Wl,--gc-sections",
+        ("-Wl,--defsym=__stack_size=32768",
+         "-Wl,--gc-sections",
          "-Wl,--print-memory-usage");
    end Linker;
 

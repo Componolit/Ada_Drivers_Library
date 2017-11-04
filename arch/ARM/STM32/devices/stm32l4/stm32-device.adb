@@ -173,6 +173,38 @@ package body STM32.Device is
       end if;
    end GPIO_Port_Representation;
 
+   ------------------
+   -- Enable_Clock --
+   ------------------
+
+   procedure Enable_Clock (This : aliased in out DMA_Controller) is
+   begin
+      if This'Address = STM32_SVD.DMA1_Base then
+         RCC_Periph.AHB1ENR.DMA1EN := True;
+      elsif This'Address = STM32_SVD.DMA2_Base then
+         RCC_Periph.AHB1ENR.DMA2EN := True;
+      else
+         raise Unknown_Device;
+      end if;
+   end Enable_Clock;
+
+   -----------
+   -- Reset --
+   -----------
+
+   procedure Reset (This : aliased in out DMA_Controller) is
+   begin
+      if This'Address = STM32_SVD.DMA1_Base then
+         RCC_Periph.AHB1RSTR.DMA1RST := True;
+         RCC_Periph.AHB1RSTR.DMA1RST := False;
+      elsif This'Address = STM32_SVD.DMA2_Base then
+         RCC_Periph.AHB1RSTR.DMA2RST := True;
+         RCC_Periph.AHB1RSTR.DMA2RST := False;
+      else
+         raise Unknown_Device;
+      end if;
+   end Reset;
+
    ----------------
    -- As_Port_Id --
    ----------------

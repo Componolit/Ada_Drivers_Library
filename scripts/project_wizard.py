@@ -45,6 +45,8 @@ def mcu_config(config):
             core = "ARM Cortex-M4F"
         elif device.startswith("STM32F7"):
             core = "ARM Cortex-M7F"
+        elif device.startswith("STM32L4"):
+            core = "ARM Cortex-M4F"
         elif device.startswith("nRF51"):
             core = "ARM Cortex-M0"
         elif device.startswith("FE3"):

@@ -14,6 +14,8 @@ def list_of_devices(config):
     elif family == "STM32F7":
         return ['STM32F746NGHx',
                 'STM32F769NIHx']
+    elif family == "STM32L4":
+        return ['STM32L452RTCx']
     elif family == "nRF51":
         return ['nRF51822xxAA']
     elif family == "FE3":
@@ -39,7 +41,7 @@ def list_of_vendors(config):
 def list_of_families(config):
     vendor = config.get_config("Vendor")
     if vendor == "STMicro":
-        return ["STM32F4", "STM32F7"]
+        return ["STM32F4", "STM32F7", "STM32L4"]
     elif vendor == "Nordic":
         return ["nRF51"]
     elif vendor == "SiFive":
@@ -146,6 +148,12 @@ def load_device_config(config):
                 'arch/ARM/STM32/drivers/sai/',
                 'arch/ARM/STM32/drivers/sd/',
                 'arch/ARM/STM32/drivers/sd/sdmmc/']
+
+    elif mcu == 'STM32L452RTCx':
+        src += ['arch/ARM/STM32/devices/stm32l4/',
+                'arch/ARM/STM32/svd/stm32l4x2/',
+                'arch/ARM/STM32/drivers/',
+                'arch/ARM/STM32/driversL4/']
 
     elif mcu.startswith('nRF51'):
         src += ['arch/ARM/Nordic/devices/',
